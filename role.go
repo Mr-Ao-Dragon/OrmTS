@@ -77,11 +77,7 @@ func (receiver *Token) GetSTSToken(roleArn *string, ttl *int64, roleSessionName 
 	return nil
 }
 func (receiver *Policy) Decode(policy string) error {
-	err := sonic.UnmarshalString(policy, receiver)
-	if err != nil {
-		return err
-	}
-	return nil
+	return sonic.UnmarshalString(policy, receiver)
 }
 func (receiver *Policy) Encode() (string, error) {
 	return sonic.MarshalString(receiver)

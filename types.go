@@ -6,7 +6,7 @@ import otsapi "github.com/alibabacloud-go/tablestore-20201209/client"
 type Query struct {
 	Tables     []string
 	Setting    *tablestore.TableStoreClient
-	TargetDB   otsapi.ListInstancesResponseBodyInstances
+	TargetDB   Db
 	region     *RegionData
 	token      Token
 	PreDefRows []string
@@ -22,6 +22,14 @@ type Table struct {
 type RegionData struct {
 	Region string
 	Dbs    []*otsapi.ListInstancesResponseBodyInstances
+}
+type Db struct {
+	metaData otsapi.ListInstancesResponseBodyInstances
+	tables   map[string]table
+}
+type table struct {
+	pks  []*DataUnit
+	rows []*DataUnit
 }
 type Token struct {
 	AccessKeyId     string
