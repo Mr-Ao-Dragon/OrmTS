@@ -1,33 +1,45 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/go
 {
-	"name": "Go",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/go:1-1.23-bookworm",
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	 "postCreateCommand": {
-       "go-env": "go env -w GO111MODULE=on",
-       "go-proxy": "go env -w GOPROXY=https://goproxy.cn,direct",
-       "git-safedir": "git config --global --add safe.directory /IdeaProjects/*"
-     },
-
-	// Configure tool-specific properties.
-  "customizations" : {
-    "jetbrains" : {
-      "backend" : "GoLand",
+  "name": "Go",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.23-bookworm",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": {
+    "go-env": "go env -w GO111MODULE=on",
+    "go-proxy": "go env -w GOPROXY=https://goproxy.cn,direct",
+    "git-safedir": "git config --global --add safe.directory /IdeaProjects/*",
+    "install-neva": "curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash"
+  },
+  "postAttachCommand": "minikube start;minikube addons enable ingress;nohup kubectl port-forward --pod-running-timeout=24h -n ingress-nginx service/ingress-nginx-controller :80",
+  // Configure tool-specific properties.
+  "customizations": {
+    "jetbrains": {
+      "backend": "GoLand",
       "plugins": [
         "alibabacloud.developer.toolkit"
       ]
+    },
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "sandipchitale.vscode-kubernetes-ingress-nginx",
+        "nevalang.vscode-nevalang",
+        "alibabacloud-openapi.aliyuncli",
+        "alibabacloud-openapi.vscode-alicloud-api"
+      ],
+      "settings": {}
     }
-  },
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  }
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
