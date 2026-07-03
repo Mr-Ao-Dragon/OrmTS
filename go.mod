@@ -1,6 +1,6 @@
 module github.com/Mr-Ao-Dragon/OrmTS
 
-go 1.23.0
+go 1.25.0
 
 require (
 	github.com/alibabacloud-go/darabonba-openapi/v2 v2.0.6
@@ -38,7 +38,7 @@ require (
 	github.com/tjfoc/gmsm v1.3.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 	gopkg.in/ini.v1 v1.56.0 // indirect
 )
